@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Simple2life</title>
+    <link rel="stylesheet" type="text/css" href="http://res.2life.cc/simple2life/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="http://res.2life.cc/simple2life/css/loading.css">
+    <link rel="stylesheet" type="text/css" href="http://res.2life.cc/simple2life/css/main.css">
+    <link rel="stylesheet" type="text/css" href="template/css/entry.css">
+    <link rel="stylesheet" type="text/css" href="template/css/prism.css">
+    <script src="lib/jquery.js"></script>
+    <script src="lib/underscore.js"></script>
+    <script src="lib/base64.js"></script>
+    <script src="lib/github.js"></script>
+    <script src="lib/spine.js"></script>
+    <script src="lib/route.js"></script>
+    <script src="lib/manager.js"></script>
+    <script src="template/js/hogan.min.js"></script>
+    <script src="lib/showdown.js"></script>
+    <script src="template/js/prism.js"></script>
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <script src="app.js"></script>
+
+</head>
+<body>
+<div class="container">
+<div id="views">
+    <div id="login">
+        <a id="fork" href="/" target="_blank"><img src="http://res.2life.cc/simple2life/img/index.png" alt="网站前台"></a>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label>账户:</label>
+                <div>
+                    <input type="text" name="user" class="form-control" id="loginuser">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>密码:</label>
+                <div>
+                    <input type="password" name="pass" class="form-control" id="loginpass">
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <input type="submit" class="btn btn-default" value="登陆" id="loginsubmit">
+                    <span class="label label-danger" id="loginerror" style="display: none;">登陆失败!</span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="main">
+        <div class="block">
+        <h2>新站说明</h2>
+        <p>请<a href="https://github.com">注册账号</a> 并<a href="https://github.com/new">新建项目</a> 项目名称为 用户名.github.io(注意勾选"<span style="color:red">生成README文件</span>")</p>
+        </div>
+        <div class="block">
+        <h2>初始化网站(仅在首次运行)</h2>
+        <p><a class="btn btn-primary" id="init">初始化</a></p>
+        <p><span class="label label-danger" id="initerror" style="display: none;">失败! 请重试!</span></p>
+        <p><span class="label label-success" id="initok" style="display: none;">初始化成功!</span></p>
+        </div>
+        <div class="block">
+        <h2>写作</h2>
+        <p>初始化成功之后立刻开始写作.</p>
+        <p><a class="btn btn-primary" id="go">Go</a></p>
+        </div>
+        </p>
+    </div>
+    <div id="posts" class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-3 sidebar">
+                <a class="nav-btn btn btn-default" href="#/posts/newpost">新的文章</a>
+                <ul class="nav nav-sidebar" id="postItems">
+                </ul>
+                <a class="nav-btn btn btn-default" href="#/posts/newpage">新的单页</a>
+                <ul class="nav nav-sidebar" id="pageItems">
+                </ul>
+            </div>
+            <div class="post-content col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3">
+                <div class="post-wrap-header">
+                <div class="page-header">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="posttitle" placeholder="标题">
+                            <input type="text" class="form-control" id="postpath" placeholder="路径名称 blog/a.html">
+                            <input type="text" class="form-control" id="postdate" placeholder="2016-03-01">
+                            <input type="text" class="form-control" id="posttags" placeholder="文章标签">
+                            <a class="btn btn-default" href="#/posts/savepost" id="postSave">保存</a>
+                            <a class="btn btn-danger" href="#" id="postDelete">删除</a>
+                            <span class="label label-danger" style="display:none;" id="saveerror">保存失败</span>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="post-wrap-edit">
+                <div id="editContent">
+                    <textarea id="editmd"></textarea>
+                    <div id="edithtml" class="entry"></div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="loading" style="display: none;">
+    <div class="spinner">
+        <div class="dot1"></div>
+        <div class="dot2"></div>
+    </div>
+</div>
+</div>
+<script id="postsItem" type="text/mustache">
+{{#items}}
+{{#active}}
+<li class="nav-active">
+{{/active}}
+{{^active}}
+<li>
+{{/active}}
+    <a href="#/posts/{{type}}/{{num}}">{{title}}</a>
+</li>
+{{/items}}
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true } });
+</script>
+</body>
